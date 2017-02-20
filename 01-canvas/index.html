@@ -10,9 +10,38 @@
   </body>
 
   <script>
+  /**
+  * other assets links
+  * https://www.udacity.com/media/js/standalone/libs/gamedev_assets/ralphyrobot.png
+  */
+
     var canvas = null;
     var context = null;
     var img = null;
+    var frame = 0;//represents the current frame
+    var frameRate = 1000/30;//it represents how often we actually want to call the animation fucntion
+    var assets = ['https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk00.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk01.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk02.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk03.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk04.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk05.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk06.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk07.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk08.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk09.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk10.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk11.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk12.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk13.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk14.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk15.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk16.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk17.png',
+              'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/robowalk/robowalk18.png'
+             ];
+  var frames = [];
+
     /* loading images require 3 steps:
     1 - Declare a new Image() object
     2 - Declare its 'onload' method
@@ -20,7 +49,7 @@
     */
     var onLoadImage = function () {
       console.log("Image!");
-      context.drawImage(img, 192, 192);
+      //context.drawImage(img, 192, 192);
     };
 
 
@@ -34,14 +63,25 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      //image loading
-      img = new Image();
-      img.onload = onLoadImage;
-      img.src = 'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/ralphyrobot.png';
+      //loading assets
+      for (var i = 0; i < assets.length; i++){
+        frames.push(new Image());
+        frames[i].onload = onLoadImage;
+        frames[i].src = assets[i];
+      }
 
-
+      //call the animation function in the specified frameRate
+      setInterval(animate, frameRate);
     };
+
+    var animate = function () {
+      context.clearRect(0, 0, canvas.width, canvas.height);//it is necessary so the images dont get on top of others
+      context.drawImage(frames[frame], 192, 192);
+      frame = (frame + 1) % frames.length;//loops back to zero if it ever gets to the end of the array
+    };
+
+
     setup();
 
-  </script>
+    </script>
 </html>
