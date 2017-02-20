@@ -12,15 +12,36 @@
   <script>
     var canvas = null;
     var context = null;
+    var img = null;
+    /* loading images require 3 steps:
+    1 - Declare a new Image() object
+    2 - Declare its 'onload' method
+    3 - Set image.src = 'url'
+    */
+    var onLoadImage = function () {
+      console.log("Image!");
+      context.drawImage(img, 192, 192);
+    };
+
+
+
 
     var setup = function () {
-      canvas = document.getElementById('canvas');
+      canvas = document.getElementById('my_canvas');
       context = canvas.getContext('2d');
       // we use window.innerHeight and window.innerWidth instead of fixed sizes
       // so the canvas can have the same size as the user window even if he resizes it.
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+
+      //image loading
+      img = new Image();
+      img.onload = onLoadImage;
+      img.src = 'https://www.udacity.com/media/js/standalone/libs/gamedev_assets/ralphyrobot.png';
+
+
     };
     setup();
+
   </script>
 </html>
