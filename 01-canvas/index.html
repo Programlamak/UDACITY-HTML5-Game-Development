@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Canvas Lessons</title>
+  </head>
+  <body>
+
+    <canvas id="my_canvas"></canvas>
+  </body>
+
+  <script>
+    var canvas = null;
+    var context = null;
+
+    var setup = function () {
+      canvas = document.getElementById('canvas');
+      context = canvas.getContext('2d');
+      // we use window.innerHeight and window.innerWidth instead of fixed sizes
+      // so the canvas can have the same size as the user window even if he resizes it.
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    setup();
+  </script>
+</html>
